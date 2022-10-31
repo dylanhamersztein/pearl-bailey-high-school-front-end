@@ -1,20 +1,26 @@
-// @flow
 import * as React from 'react';
 import {Container, Nav, Navbar} from "react-bootstrap";
+import {LinkContainer} from "react-router-bootstrap"
 
 type Props = {};
 
 export const NavBar = (props: Props) => {
     return (
-        <Navbar bg="light" expand="large" expanded={true}>
-            <Container>
+        <Container>
+            <Navbar bg="light" expand="large" expanded={true}>
                 <Navbar.Brand>Pearl Bailey High School</Navbar.Brand>
                 <Nav className="me-auto flex-row">
-                    <Nav.Link className="mx-3" href="/students">Students</Nav.Link>
-                    <Nav.Link className="mx-3" href="/teachers">Teachers</Nav.Link>
-                    <Nav.Link className="mx-3" href="/courses">Courses</Nav.Link>
+                    <LinkContainer to="/students">
+                        <Nav.Link className="mx-3">Students</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/teachers">
+                        <Nav.Link className="mx-3">Teachers</Nav.Link>
+                    </LinkContainer>
+                    <LinkContainer to="/courses">
+                        <Nav.Link className="mx-3">Courses</Nav.Link>
+                    </LinkContainer>
                 </Nav>
-            </Container>
-        </Navbar>
+            </Navbar>
+        </Container>
     );
 };
