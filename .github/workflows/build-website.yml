@@ -19,5 +19,7 @@ jobs:
           node-version: 18
       - name: NPM Clean Install
         run: npm ci
+      - name: NPM Run Test
+        run: npm run test
       - name: NPM Run Build
         run: npm run build
