@@ -1,13 +1,12 @@
-import * as React from 'react';
-import {NavBar} from "../nav-bar/NavBar";
-import {Outlet} from "react-router-dom";
+import * as React from "react";
+import { NavBar } from "../nav-bar/NavBar";
+import { Outlet } from "react-router-dom";
 
-type Props = {};
-export const Layout = (props: Props) => {
-    return (
-        <>
-            <NavBar/>
-            <Outlet/>
-        </>
-    );
+export const Layout = () => {
+  return (
+    <div className="d-flex flex-column vh-100 vw-100">
+      <NavBar />
+      <Outlet />
+    </div>
+  );
 };
