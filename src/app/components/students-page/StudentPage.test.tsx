@@ -1,6 +1,6 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import StudentPage from "./StudentPage";
+import { StudentPage } from "./StudentPage";
 
 test("Renders the update student button", () => {
   render(<StudentPage />);

@@ -1,4 +1,4 @@
-import ResourcePage from "../resource-page/ResourcePage";
+import { ResourcePage } from "../resource-page/ResourcePage";
 import { ColDef, GridOptions } from "ag-grid-community";
 
 type Course = {
@@ -10,49 +10,37 @@ type Course = {
   courseStatus: string;
 };
 
-class CoursePage extends ResourcePage<Course> {
-  getResourceName(): string {
-    return "Course";
-  }
+type Props = {};
 
-  getColumnDefinitions(): ColDef[] {
-    return [
-      {
-        field: "name",
-      },
-      {
-        field: "teacherId",
-        headerName: "Teacher ID",
-      },
-      {
-        field: "departmentId",
-        headerName: "Department ID",
-      },
-      {
-        field: "description",
-      },
-      {
-        field: "courseStatus",
-      },
-    ];
-  }
+export const CoursePage = (props: Props) => {
+  const columnDefinitions: ColDef[] = [
+    {
+      field: "name",
+    },
+    {
+      field: "teacherId",
+      headerName: "Teacher ID",
+    },
+    {
+      field: "departmentId",
+      headerName: "Department ID",
+    },
+    {
+      field: "description",
+    },
+    {
+      field: "courseStatus",
+    },
+  ];
 
-  getGridOptionsOverrides(): GridOptions {
-    return {};
-  }
+  const gridOptions: GridOptions = {};
 
-  getRowData(): Course[] {
-    return Array.from({ length: 100 }, (value, key) => key).map((it) => {
-      return {
-        id: it,
-        name: "Computer Science",
-        teacherId: 1,
-        departmentId: 2,
-        description: "Learn Computer Science at Pearl Bailey High School",
-        courseStatus: "PLANNED",
-      } as Course;
-    });
-  }
-}
-
-export default CoursePage;
+  return (
+    <ResourcePage
+      resourceName="Course"
+      resourceLocation="https://localhost:8080/courses"
+      columnDefinitions={columnDefinitions}
+      gridOptionsOverrides={gridOptions}
+    />
+  );
+};
