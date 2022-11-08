@@ -10,6 +10,7 @@ type Props = {
 export const StudentForm = (props: Props) => {
   const formattedMode = props.mode[0] + props.mode.slice(1).toLowerCase();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [student, setStudent] = useState<Student>(
     props.student || ({} as Student)
   );

@@ -35,6 +35,7 @@ export const ResourcePage = (props: Props) => {
     [props.gridOptionsOverrides]
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [rowData, setRowData] = useState([]);
 
   const [showModal, setShowModal] = useState(false);

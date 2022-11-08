@@ -1,6 +1,7 @@
 import { ResourcePage } from "../resource-page/ResourcePage";
 import { ColDef, GridOptions } from "ag-grid-community";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Course = {
   id: number;
   name: string;
