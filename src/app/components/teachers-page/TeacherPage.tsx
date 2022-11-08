@@ -1,6 +1,7 @@
-import ResourcePage from "../resource-page/ResourcePage";
+import { ResourcePage } from "../resource-page/ResourcePage";
 import { ColDef, GridOptions } from "ag-grid-community";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Teacher = {
   id: number;
   firstName: string;
@@ -9,43 +10,32 @@ type Teacher = {
   dateOfBirth: string;
 };
 
-class TeacherPage extends ResourcePage<Teacher> {
-  getResourceName(): string {
-    return "Teacher";
-  }
+type Props = {};
 
-  getColumnDefinitions(): ColDef[] {
-    return [
-      {
-        field: "firstName",
-      },
-      {
-        field: "middleName",
-      },
-      {
-        field: "lastName",
-      },
-      {
-        field: "dateOfBirth",
-      },
-    ];
-  }
+export const TeacherPage = (props: Props) => {
+  const columnDefinitions: ColDef[] = [
+    {
+      field: "firstName",
+    },
+    {
+      field: "middleName",
+    },
+    {
+      field: "lastName",
+    },
+    {
+      field: "dateOfBirth",
+    },
+  ];
 
-  getGridOptionsOverrides(): GridOptions {
-    return {};
-  }
+  const gridOptions: GridOptions = {};
 
-  getRowData(): Teacher[] {
-    return Array.from({ length: 100 }, (value, key) => key).map((it) => {
-      return {
-        id: it,
-        firstName: `Steven ${it}`,
-        middleName: `Anita ${it}`,
-        lastName: `Smith ${it}`,
-        dateOfBirth: "25/01/1994",
-      } as Teacher;
-    });
-  }
-}
-
-export default TeacherPage;
+  return (
+    <ResourcePage
+      resourceName="Teacher"
+      resourceLocation="https://localhost:8080/teachers"
+      columnDefinitions={columnDefinitions}
+      gridOptionsOverrides={gridOptions}
+    />
+  );
+};
