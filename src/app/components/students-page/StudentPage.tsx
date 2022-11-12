@@ -8,6 +8,7 @@ import {
   Student,
   unsetSelectedStudent,
 } from "../../redux/student/studentSlice";
+import { State } from "../../redux/store";
 
 type Props = {};
 
@@ -44,13 +45,14 @@ export const StudentPage = (props: Props) => {
 
   return (
     <ResourcePage<Student>
-      resourceName="Student"
       columnDefinitions={columnDefs}
-      resourceFormElement={<StudentForm />}
       getResourceDispatch={useGetAllStudentsQuery}
       gridOptionsOverrides={gridOptionsOverrides}
-      selectResource={setSelectedStudent}
-      unselectResource={unsetSelectedStudent}
+      resourceFormElement={<StudentForm />}
+      resourceSelector={({ students }: State) => students.selectedStudent}
+      setResourceSelected={setSelectedStudent}
+      unsetResourceSelected={unsetSelectedStudent}
+      resourceName="Student"
     />
   );
 };

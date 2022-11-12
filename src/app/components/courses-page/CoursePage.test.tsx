@@ -1,4 +1,3 @@
-import React from "react";
 import { screen } from "@testing-library/react";
 import { CoursePage } from "./CoursePage";
 import { renderWithProviders } from "../../utils/testUtils";

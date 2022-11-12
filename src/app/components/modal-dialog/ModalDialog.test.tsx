@@ -1,5 +1,4 @@
 import { act, screen } from "@testing-library/react";
-import React from "react";
 import { ModalDialog } from "./ModalDialog";
 import { showModal } from "../../redux/appSlice";
 import { renderWithProviders } from "../../utils/testUtils";
