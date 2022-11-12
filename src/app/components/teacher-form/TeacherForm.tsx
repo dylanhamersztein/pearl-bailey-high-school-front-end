@@ -7,7 +7,7 @@ import {
 } from "../../redux/teachers/teacherApi";
 import { Button, Form } from "react-bootstrap";
 import { Teacher } from "../../redux/teachers/teacherSlice";
-import { hideModal } from "../../redux/appSlice";
+import { hideModal } from "../../redux/app/appSlice";
 
 type Props = {};
 export const TeacherForm = (props: Props) => {

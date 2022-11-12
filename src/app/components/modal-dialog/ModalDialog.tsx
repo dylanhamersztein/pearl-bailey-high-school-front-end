@@ -3,7 +3,7 @@ import { ReactElement } from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, State } from "../../redux/store";
-import { hideModal } from "../../redux/appSlice";
+import { hideModal } from "../../redux/app/appSlice";
 
 type Props = {
   title: string;

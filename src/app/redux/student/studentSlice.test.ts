@@ -11,7 +11,6 @@ test("should return initial state", () => {
 });
 
 test("should set selected student", () => {
-  const prevState = { selectedStudent: undefined };
   const selectedStudent: Student = {
     dateOfBirth: "25/01/1994",
     firstName: "Dylan",
@@ -20,13 +19,14 @@ test("should set selected student", () => {
     status: "PROSPECT",
     id: 1,
   };
-  expect(reducer(prevState, setSelectedStudent(selectedStudent))).toEqual({
+  expect(
+    reducer({ selectedStudent: undefined }, setSelectedStudent(selectedStudent))
+  ).toEqual({
     selectedStudent,
   });
 });
 
 test("should unset selected student", () => {
-  const prevState = { selectedStudent: undefined };
   const selectedStudent: Student = {
     dateOfBirth: "25/01/1994",
     firstName: "Dylan",
@@ -35,11 +35,13 @@ test("should unset selected student", () => {
     status: "PROSPECT",
     id: 1,
   };
-  expect(reducer(prevState, setSelectedStudent(selectedStudent))).toEqual({
+  expect(
+    reducer({ selectedStudent }, setSelectedStudent(selectedStudent))
+  ).toEqual({
     selectedStudent,
   });
 
-  expect(reducer(prevState, unsetSelectedStudent())).toEqual({
+  expect(reducer({ selectedStudent }, unsetSelectedStudent())).toEqual({
     selectedStudent: undefined,
   });
 });
