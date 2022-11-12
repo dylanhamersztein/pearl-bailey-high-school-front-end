@@ -1,5 +1,11 @@
 import { ResourcePage } from "../resource-page/ResourcePage";
 import { ColDef, GridOptions } from "ag-grid-community";
+import { StudentForm } from "../student-form/StudentForm";
+import { useGetAllStudentsQuery } from "../../redux/student/studentApi";
+import {
+  setSelectedStudent,
+  unsetSelectedStudent,
+} from "../../redux/student/studentSlice";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Teacher = {
@@ -32,8 +38,11 @@ export const TeacherPage = (props: Props) => {
 
   return (
     <ResourcePage
+      selectResource={setSelectedStudent}
+      unselectResource={unsetSelectedStudent}
+      getResourceDispatch={useGetAllStudentsQuery}
       resourceName="Teacher"
-      resourceLocation="https://localhost:8080/teachers"
+      resourceFormElement={<StudentForm />}
       columnDefinitions={columnDefinitions}
       gridOptionsOverrides={gridOptions}
     />

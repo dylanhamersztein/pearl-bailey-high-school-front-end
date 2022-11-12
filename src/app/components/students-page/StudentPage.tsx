@@ -1,47 +1,56 @@
-import { ResourcePage } from "../resource-page/ResourcePage";
 import { ColDef, GridOptions } from "ag-grid-community";
-
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
-
-export type Student = {
-  id?: number;
-  firstName?: string;
-  middleName?: string;
-  lastName?: string;
-  dateOfBirth?: string;
-  status?: string;
-};
+import { useMemo } from "react";
+import { StudentForm } from "../student-form/StudentForm";
+import { useGetAllStudentsQuery } from "../../redux/student/studentApi";
+import { ResourcePage } from "../resource-page/ResourcePage";
+import {
+  setSelectedStudent,
+  Student,
+  unsetSelectedStudent,
+} from "../../redux/student/studentSlice";
 
 type Props = {};
 
 export const StudentPage = (props: Props) => {
-  const columnDefinitions: ColDef[] = [
-    {
-      field: "firstName",
-    },
-    {
-      field: "middleName",
-    },
-    {
-      field: "lastName",
-    },
-    {
-      field: "dateOfBirth",
-    },
-    {
-      field: "status",
-    },
-  ];
+  const columnDefs: ColDef[] = useMemo(
+    () => [
+      {
+        field: "id",
+        headerName: "ID",
+        lockPosition: "left",
+        suppressMovable: true,
+        maxWidth: 100,
+      },
+      {
+        field: "firstName",
+      },
+      {
+        field: "middleName",
+      },
+      {
+        field: "lastName",
+      },
+      {
+        field: "dateOfBirth",
+      },
+      {
+        field: "status",
+      },
+    ],
+    []
+  );
 
-  const gridOptions: GridOptions = {};
+  const gridOptionsOverrides: GridOptions = useMemo(() => ({}), []);
 
   return (
-    <ResourcePage
+    <ResourcePage<Student>
       resourceName="Student"
-      resourceLocation="https://localhost:8080/students"
-      columnDefinitions={columnDefinitions}
-      gridOptionsOverrides={gridOptions}
+      columnDefinitions={columnDefs}
+      resourceFormElement={<StudentForm />}
+      getResourceDispatch={useGetAllStudentsQuery}
+      gridOptionsOverrides={gridOptionsOverrides}
+      selectResource={setSelectedStudent}
+      unselectResource={unsetSelectedStudent}
     />
   );
 };
