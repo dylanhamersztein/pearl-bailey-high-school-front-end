@@ -1,19 +1,13 @@
-import {ResourcePage} from "../resource-page/ResourcePage";
-import {ColDef, GridOptions} from "ag-grid-community";
-import {StudentForm} from "../student-form/StudentForm";
-import {useGetAllStudentsQuery} from "../../redux/student/studentApi";
-import {setSelectedStudent, Student, unsetSelectedStudent,} from "../../redux/student/studentSlice";
-import {State} from "../../redux/store";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type Course = {
-  id: number;
-  name: string;
-  teacherId: number;
-  departmentId: number;
-  description: string;
-  courseStatus: string;
-};
+import { ResourcePage } from "../resource-page/ResourcePage";
+import { ColDef, GridOptions } from "ag-grid-community";
+import { StudentForm } from "../student-form/StudentForm";
+import { useGetAllStudentsQuery } from "../../redux/student/studentApi";
+import {
+  setSelectedStudent,
+  Student,
+  unsetSelectedStudent,
+} from "../../redux/student/studentSlice";
+import { State } from "../../redux/store";
 
 type Props = {};
 

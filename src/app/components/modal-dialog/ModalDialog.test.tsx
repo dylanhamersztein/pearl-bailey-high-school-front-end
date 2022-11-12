@@ -1,6 +1,6 @@
 import { act, screen } from "@testing-library/react";
 import { ModalDialog } from "./ModalDialog";
-import { showModal } from "../../redux/appSlice";
+import { showModal } from "../../redux/app/appSlice";
 import { renderWithProviders } from "../../utils/testUtils";
 
 test("Renders the title and body when show is true", () => {

@@ -10,7 +10,7 @@ import { Button, Stack } from "react-bootstrap";
 import { ReactElement, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, State } from "../../redux/store";
-import { showModal } from "../../redux/appSlice";
+import { showModal } from "../../redux/app/appSlice";
 import { ModalDialog } from "../modal-dialog/ModalDialog";
 import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import "ag-grid-community/styles/ag-grid.css";

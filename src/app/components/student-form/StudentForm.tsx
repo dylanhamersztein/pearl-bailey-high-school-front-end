@@ -6,7 +6,7 @@ import {
 } from "../../redux/student/studentApi";
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, State } from "../../redux/store";
-import { hideModal } from "../../redux/appSlice";
+import { hideModal } from "../../redux/app/appSlice";
 import { Student } from "../../redux/student/studentSlice";
 
 type Props = {};
