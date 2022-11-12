@@ -1,4 +1,3 @@
-import React from "react";
 import "./PearlBaileyHighSchoolFrontEnd.scss";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {Layout} from "./app/components/layout/Layout";

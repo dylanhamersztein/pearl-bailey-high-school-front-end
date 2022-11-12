@@ -12,22 +12,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { Dispatch, State } from "../../redux/store";
 import { showModal } from "../../redux/appSlice";
 import { ModalDialog } from "../modal-dialog/ModalDialog";
+import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 import {
   ActionCreatorWithoutPayload,
   ActionCreatorWithPayload,
 } from "@reduxjs/toolkit";
-import { UseQuery } from "@reduxjs/toolkit/dist/query/react/buildHooks";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
 
 type Props<T> = {
-  getResourceDispatch: UseQuery<any>;
-  selectResource: ActionCreatorWithPayload<T, string>;
-  unselectResource: ActionCreatorWithoutPayload<string>;
-  resourceName: string;
-  resourceFormElement: ReactElement<any, any>;
   columnDefinitions: ColDef[];
+  getResourceDispatch: UseQuery<any>;
   gridOptionsOverrides: GridOptions;
+  resourceFormElement: ReactElement<any, any>;
+  resourceSelector: (state: State) => T | undefined;
+  setResourceSelected: ActionCreatorWithPayload<T>;
+  unsetResourceSelected: ActionCreatorWithoutPayload;
+  resourceName: string;
 };
 
 export const ResourcePage = <T extends unknown>({
@@ -35,9 +36,10 @@ export const ResourcePage = <T extends unknown>({
   getResourceDispatch,
   gridOptionsOverrides,
   resourceFormElement,
+  resourceSelector,
+  setResourceSelected,
+  unsetResourceSelected,
   resourceName,
-  selectResource,
-  unselectResource,
 }: Props<T>) => {
   const dispatch = useDispatch<Dispatch>();
 
@@ -55,9 +57,7 @@ export const ResourcePage = <T extends unknown>({
     [columnDefinitions]
   );
 
-  const selectedStudent = useSelector(
-    ({ students }: State) => students.selectedStudent
-  );
+  const selectedResource = useSelector(resourceSelector);
 
   const gridOptions: GridOptions = useMemo(
     () => ({
@@ -68,14 +68,14 @@ export const ResourcePage = <T extends unknown>({
         api.sizeColumnsToFit();
       },
       onRowSelected({ api }: RowSelectedEvent<any>) {
-        dispatch(selectResource!!(api.getSelectedRows()[0] as T));
+        dispatch(setResourceSelected(api.getSelectedRows()[0] as T));
       },
       onSelectionChanged({ api }: SelectionChangedEvent<any>) {
-        dispatch(selectResource!!(api.getSelectedRows()[0] as T));
+        dispatch(setResourceSelected(api.getSelectedRows()[0] as T));
       },
       ...gridOptionsOverrides,
     }),
-    [gridOptionsOverrides, dispatch, selectResource]
+    [gridOptionsOverrides, dispatch, setResourceSelected]
   );
 
   // @ts-ignore
@@ -83,7 +83,7 @@ export const ResourcePage = <T extends unknown>({
 
   const doUnselectResource = () => {
     gridOptions.api!!.deselectAll();
-    dispatch(unselectResource());
+    dispatch(unsetResourceSelected());
   };
 
   const onCreateClicked = () => {
@@ -108,7 +108,7 @@ export const ResourcePage = <T extends unknown>({
           <Button
             variant="outline-secondary"
             className="mx-2"
-            disabled={!selectedStudent}
+            disabled={!selectedResource}
             onClick={() => dispatch(showModal())}
           >
             Update {resourceName}
@@ -123,7 +123,7 @@ export const ResourcePage = <T extends unknown>({
         </div>
       </Stack>
       <ModalDialog
-        title={(selectedStudent ? "Update " : "Create ") + resourceName}
+        title={(selectedResource ? "Update " : "Create ") + resourceName}
       >
         {resourceFormElement}
       </ModalDialog>

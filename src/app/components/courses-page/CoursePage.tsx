@@ -1,11 +1,9 @@
-import { ResourcePage } from "../resource-page/ResourcePage";
-import { ColDef, GridOptions } from "ag-grid-community";
-import { StudentForm } from "../student-form/StudentForm";
-import { useGetAllStudentsQuery } from "../../redux/student/studentApi";
-import {
-  setSelectedStudent,
-  unsetSelectedStudent,
-} from "../../redux/student/studentSlice";
+import {ResourcePage} from "../resource-page/ResourcePage";
+import {ColDef, GridOptions} from "ag-grid-community";
+import {StudentForm} from "../student-form/StudentForm";
+import {useGetAllStudentsQuery} from "../../redux/student/studentApi";
+import {setSelectedStudent, Student, unsetSelectedStudent,} from "../../redux/student/studentSlice";
+import {State} from "../../redux/store";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 type Course = {
@@ -20,7 +18,7 @@ type Course = {
 type Props = {};
 
 export const CoursePage = (props: Props) => {
-  const columnDefinitions: ColDef[] = [
+  const columnDefs: ColDef[] = [
     {
       field: "name",
     },
@@ -40,17 +38,18 @@ export const CoursePage = (props: Props) => {
     },
   ];
 
-  const gridOptions: GridOptions = {};
+  const gridOptionsOverrides: GridOptions = {};
 
   return (
-    <ResourcePage
-      selectResource={setSelectedStudent}
-      unselectResource={unsetSelectedStudent}
+    <ResourcePage<Student>
+      columnDefinitions={columnDefs}
       getResourceDispatch={useGetAllStudentsQuery}
-      resourceName="Course"
+      gridOptionsOverrides={gridOptionsOverrides}
       resourceFormElement={<StudentForm />}
-      columnDefinitions={columnDefinitions}
-      gridOptionsOverrides={gridOptions}
+      resourceName="Course"
+      resourceSelector={({ students }: State) => students.selectedStudent}
+      setResourceSelected={setSelectedStudent}
+      unsetResourceSelected={unsetSelectedStudent}
     />
   );
 };

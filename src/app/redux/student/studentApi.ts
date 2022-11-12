@@ -1,13 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { Student } from "./studentSlice";
+import { LIST, providesList } from "../../utils/reduxUtils";
 
 const STUDENT = "Student";
-const LIST = "LIST";
-
-const providesList = <R extends { id: number }[], T extends string>(
-  res: R | undefined,
-  type: T
-) => [{ type, id: LIST }, ...(res || []).map(({ id }) => ({ type, id }))];
 
 export const studentApi = createApi({
   reducerPath: "studentsApi",
@@ -16,7 +11,7 @@ export const studentApi = createApi({
   endpoints: (builder) => ({
     getAllStudents: builder.query({
       query: () => "",
-      providesTags: (result, error, arg) => providesList(result, STUDENT),
+      providesTags: (result) => providesList(result, STUDENT),
     }),
     getStudentById: builder.query({
       query: (id: number) => `/${id}`,

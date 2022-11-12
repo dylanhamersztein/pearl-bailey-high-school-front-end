@@ -1,20 +1,13 @@
 import { ResourcePage } from "../resource-page/ResourcePage";
 import { ColDef, GridOptions } from "ag-grid-community";
-import { StudentForm } from "../student-form/StudentForm";
-import { useGetAllStudentsQuery } from "../../redux/student/studentApi";
 import {
-  setSelectedStudent,
-  unsetSelectedStudent,
-} from "../../redux/student/studentSlice";
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-type Teacher = {
-  id: number;
-  firstName: string;
-  middleName: string | undefined | null;
-  lastName: string;
-  dateOfBirth: string;
-};
+  setSelectedTeacher,
+  Teacher,
+  unsetSelectedTeacher,
+} from "../../redux/teachers/teacherSlice";
+import { useGetAllTeachersQuery } from "../../redux/teachers/teacherApi";
+import { State } from "../../redux/store";
+import { TeacherForm } from "../teacher-form/TeacherForm";
 
 type Props = {};
 
@@ -37,14 +30,15 @@ export const TeacherPage = (props: Props) => {
   const gridOptions: GridOptions = {};
 
   return (
-    <ResourcePage
-      selectResource={setSelectedStudent}
-      unselectResource={unsetSelectedStudent}
-      getResourceDispatch={useGetAllStudentsQuery}
-      resourceName="Teacher"
-      resourceFormElement={<StudentForm />}
+    <ResourcePage<Teacher>
       columnDefinitions={columnDefinitions}
+      getResourceDispatch={useGetAllTeachersQuery}
       gridOptionsOverrides={gridOptions}
+      resourceFormElement={<TeacherForm />}
+      resourceName="Teacher"
+      resourceSelector={(state: State) => state.teachers.selectedTeacher}
+      setResourceSelected={setSelectedTeacher}
+      unsetResourceSelected={unsetSelectedTeacher}
     />
   );
 };
