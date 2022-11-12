@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import PearlBaileyHighSchoolFrontEnd from "./PearlBaileyHighSchoolFrontEnd";
 import reportWebVitals from "./reportWebVitals";
-
+import { Provider } from "react-redux";
+import { setupStore } from "./app/redux/store";
 import "./index.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -12,7 +13,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <PearlBaileyHighSchoolFrontEnd />
+    <Provider store={setupStore()}>
+      <PearlBaileyHighSchoolFrontEnd />
+    </Provider>
   </React.StrictMode>
 );
 

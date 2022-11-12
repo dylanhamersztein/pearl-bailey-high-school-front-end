@@ -1,15 +1,20 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { CoursePage } from "./CoursePage";
+import { renderWithProviders } from "../../utils/testUtils";
 
-test("Renders the update course button", () => {
-  render(<CoursePage />);
-  const linkElement = screen.getByText(/Update Course/i);
-  expect(linkElement).toBeInTheDocument();
+test("Renders the update course button correctly", () => {
+  renderWithProviders(<CoursePage />);
+
+  const updateCourseButton = screen.getByText(/Update Course/i);
+  expect(updateCourseButton).toBeInTheDocument();
+  expect(updateCourseButton).toBeDisabled();
 });
 
 test("Renders the create course button", () => {
-  render(<CoursePage />);
-  const linkElement = screen.getByText(/Create Course/i);
-  expect(linkElement).toBeInTheDocument();
+  renderWithProviders(<CoursePage />);
+
+  const createCourseButton = screen.getByText(/Create Course/i);
+  expect(createCourseButton).toBeInTheDocument();
+  expect(createCourseButton).toBeEnabled();
 });
